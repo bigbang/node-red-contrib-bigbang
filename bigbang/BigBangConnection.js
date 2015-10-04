@@ -8,7 +8,7 @@ module.exports = function (RED) {
         var async = require('async');
 
         this.url = n.url;
-        this.client = new BigBang.Client();
+        this.client = new BigBang.Client(this.url);
 
         var subscribeQueue = async.queue(function (task, callback) {
 
@@ -34,7 +34,7 @@ module.exports = function (RED) {
         this.STATUS_SUBSCRIBED = {fill: "green", shape: "dot", text: "subscribed"};
         this.STATUS_DISCONNECTED = {fill: "grey", shape: "ring", text: "disconnected"};
 
-        this.client.connect(this.url, function (err) {
+        this.client.connect(function (err) {
             if (err) {
                 node.log("Error connecting " + err);
 
